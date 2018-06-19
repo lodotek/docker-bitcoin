@@ -1,5 +1,8 @@
 # Docker-Bitcoin
 
+[![Build Status](https://img.shields.io/travis/lodotek/docker-bitcoin.svg)](https://travis-ci.org/lodotek/docker-bitcoin)
+[![License](https://img.shields.io/github/license/amacneil/docker-bitcoin.svg)](https://github.com/amacneil/docker-bitcoin/blob/master/LICENSE)
+
 Bitcoin uses peer-to-peer technology to operate with no central authority or banks; managing transactions and the issuing of bitcoin is carried out collectively by the network. Bitcoin is open-source; its design is public, nobody owns or controls Bitcoin and everyone can take part. Through many of its unique properties, Bitcoin allows exciting uses that could not be covered by any previous payment system.
 
 This Docker image provides `bitcoin`, `bitcoin-cli` and `bitcoin-tx` applications which can be used to run and interact with a bitcoin server.
@@ -7,7 +10,7 @@ This Docker image provides `bitcoin`, `bitcoin-cli` and `bitcoin-tx` application
 Images are provided for a range of current and historic Bitcoin forks.
 To see the available versions/tags, please visit the appropriate pages on Docker Hub:
 
-* [Bitcoin Core](https://hub.docker.com/r/fflo/bitcoin-core/tags/)
+* [Bitcoin Core](https://hub.docker.com/r/lodotek/bitcoin-core/tags/)
 * [Bitcoin Classic](https://hub.docker.com/r/amacneil/bitcoinclassic/tags/)
 * [Bitcoin Unlimited](https://hub.docker.com/r/amacneil/bitcoinunlimited/tags/)
 * [Bitcoin XT](https://hub.docker.com/r/amacneil/bitcoinxt/tags/)
@@ -18,25 +21,25 @@ To see the available versions/tags, please visit the appropriate pages on Docker
 To start a bitcoind instance running the latest version:
 
 ```
-$ docker run fflo/bitcoin-core
+$ docker run lodotek/bitcoin-core
 ```
 
 This docker image provides different tags so that you can specify the exact version of bitcoin you wish to run. For example, to run the latest minor version in the `0.14.x` series (currently `0.15.1`):
 
 ```
-$ docker run fflo/bitcoin-core:0.14.2
+$ docker run lodotek/bitcoin-core:0.14.2
 ```
 
 Or, to run the `0.15.1` release specifically:
 
 ```
-$ docker run fflo/bitcoin-core:0.15.1
+$ docker run lodotek/bitcoin-core:0.15.1
 ```
 
 To run a bitcoin container in the background, pass the `-d` option to `docker run`, and give your container a name for easy reference later:
 
 ```
-$ docker run -d --rm --name bitcoind fflo/bitcoin-core
+$ docker run -d --rm --name bitcoind lodotek/bitcoin-core
 ```
 
 Once you have a bitcoin service running in the background, you can show running containers:
@@ -105,7 +108,7 @@ By default, Docker will create ephemeral containers. That is, the blockchain dat
 To keep your blockchain data between container restarts or upgrades, simply add the `-v` option to create a [data volume](https://docs.docker.com/engine/tutorials/dockervolumes/):
 
 ```
-$ docker run -d --rm --name bitcoind -v bitcoin-data:/data fflo/bitcoin-core
+$ docker run -d --rm --name bitcoind -v bitcoin-data:/data lodotek/bitcoin-core
 $ docker ps
 $ docker inspect bitcoin-data
 ```
@@ -113,7 +116,7 @@ $ docker inspect bitcoin-data
 Alternatively, you can map the data volume to a location on your host:
 
 ```
-$ docker run -d --rm --name bitcoind -v "$PWD/data:/data" fflo/bitcoin-core
+$ docker run -d --rm --name bitcoind -v "$PWD/data:/data" lodotek/bitcoin-core
 $ ls -alh ./data
 ```
 
@@ -124,16 +127,16 @@ By default, Docker runs all containers on a private bridge network. This means t
 There are several methods to run `bitclin-cli` against a running `bitcoind` container. The easiest is to simply let your `bitcoin-cli` container share networking with your `bitcoind` container:
 
 ```
-$ docker run -d --rm --name bitcoind -v bitcoin-data:/data fflo/bitcoin-core
-$ docker run --rm --network container:bitcoind fflo/bitcoin-core bitcoin-cli getinfo
+$ docker run -d --rm --name bitcoind -v bitcoin-data:/data lodotek/bitcoin-core
+$ docker run --rm --network container:bitcoind lodotek/bitcoin-core bitcoin-cli getinfo
 ```
 
 If you plan on exposing the RPC port to multiple containers (for example, if you are developing an application which communicates with the RPC port directly), you probably want to consider creating a [user-defined network](https://docs.docker.com/engine/userguide/networking/). You can then use this network for both your `bitcoind` and `bitclin-cli` containers, passing `-rpcconnect` to specify the hostname of your `bitcoind` container:
 
 ```
 $ docker network create bitcoin
-$ docker run -d --rm --name bitcoind -v bitcoin-data:/data --network bitcoin fflo/bitcoin-core
-$ docker run --rm --network bitcoin fflo/bitcoin-core bitcoin-cli -rpcconnect=bitcoind getinfo
+$ docker run -d --rm --name bitcoind -v bitcoin-data:/data --network bitcoin lodotek/bitcoin-core
+$ docker run --rm --network bitcoin lodotek/bitcoin-core bitcoin-cli -rpcconnect=bitcoind getinfo
 ```
 
 ### Complete Example
