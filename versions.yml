@@ -57,16 +57,6 @@ btc1:
     sha256: 77ed18fe14413778ad37bc0c3cac38ce99268ff37e1c3cb81f3af82d9f40e9c7
 
 classic:
-  1.3.5:
-    url: https://github.com/bitcoinclassic/bitcoinclassic/releases/download/v1.3.5/bitcoin-1.3.5-linux64.tar.gz
-    asc_url: https://github.com/bitcoinclassic/bitcoinclassic/releases/download/v1.3.5/SHA256SUMS.asc
-    key: C07B28FD422F1B49E78889F5C2A5545EA91CCAE7
-    sha256: d6f480f07eadf314bee8eeea882de87a2cf2371ecdd9e78f8b4225df2b4396f9
-  1.3.5uahf:
-    url: https://github.com/bitcoinclassic/bitcoinclassic/releases/download/v1.3.5uahf/bitcoin-1.3.5-linux64.tar.gz
-    asc_url: https://github.com/bitcoinclassic/bitcoinclassic/releases/download/v1.3.5uahf/SHA256SUMS.asc
-    key: C07B28FD422F1B49E78889F5C2A5545EA91CCAE7
-    sha256: cb1ad950d533874a9da2e054f9c5fe9e10733fbd75e08b97b1b09c80a993566d
   1.3.6:
     url: https://github.com/bitcoinclassic/bitcoinclassic/releases/download/v1.3.6/bitcoin-1.3.6-linux64.tar.gz
     asc_url: https://github.com/bitcoinclassic/bitcoinclassic/releases/download/v1.3.6/SHA256SUMS.asc
